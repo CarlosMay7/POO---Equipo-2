@@ -1,1 +1,1 @@
-# POO---Equipo-2
+# POO-Equipo-2
