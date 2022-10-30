@@ -5,7 +5,7 @@ class Oferta:
     __tamanoEmpresa = ""
     __ubicacion = ""
     __modalidad = ""
-    #__tablaTecnologias = 
+    __tablaTecnologias = []
     __cantidadSoftskills = 0
     __rol = ""
     __ofertasTotales = 0
@@ -13,34 +13,35 @@ class Oferta:
     
 
     def __init__(self, salario, tamanoEmpresa, ubicacion, modalidad, tablaTecnologias, cantidadSoftskills, rol, ofertasTotales):
-        self.__salario= salario
+        self.__salario = salario
         self.__tamanoEmpresa = tamanoEmpresa
         self.__ubicacion = ubicacion
-        self.__modalidad=modalidad
+        self.__modalidad = modalidad
+        self.__tablaTecnologias = tablaTecnologias
         self.__cantidadSoftskills = cantidadSoftskills
-        self.__rol= rol
+        self.__rol = rol
         self.__ofertasTotales = ofertasTotales
 
     def obtenerSalario (self):
-        return self.salario
+        return self.__salario
 
     def obtenerTamañoEmpresa(self):
-        return self.tamanoEmpresa
+        return self.__tamanoEmpresa
 
     def obtenerModalidad(self):
-        return self.modalidad
+        return self.__modalidad
 
     def obtenerUbicacion(self):
-        return self.ubicacion
+        return self.__ubicacion
 
     def obtenerTecnologias(self):
-        return self.tablaTecnoligias
+        return self.__tablaTecnologias
 
     def obtenerCantidadSoftskills(self):
-        return self.cantidadSoftskills
+        return self.__cantidadSoftskills
 
     def obtenerRol(self):
-        return self.rol
+        return self.__rol
 
     def obtenerOfertasTotales(self):
-        return self.ofertasTotales
+        return self.__ofertasTotales
