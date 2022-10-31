@@ -16,7 +16,7 @@ class Webscrapper:
         options = webdriver.ChromeOptions()
 
         #headless
-        #options.add_argument('headless')
+        options.add_argument('headless')
 
         driver = webdriver.Chrome(executable_path=PATH,options=options)
         url = 'https://www.glassdoor.com.mx/Empleo/m%C3%A9xico-software-engineer-empleos-SRCH_IL.0,6_IN169_KO7,24.htm'
@@ -55,17 +55,17 @@ class Webscrapper:
                 while not exitoso: # valores siempre presentes en las ofertas
                     try:
                         salario = Webscrapper.recolectarSalario(driver)
-                        empresa = ""#recolectarEmpresa()
-                        ubicacion = ""#recolectarUbicacion()
-                        modalidad = ""#recolectarModalidad()
-                        descripcion = ""#recolectarDescripcion()
+                        empresa = Webscrapper.recolectarEmpresa(driver)
+                        ubicacion = Webscrapper.recolectarUbicacion(driver)
+                        modalidad = Webscrapper.recolectarModalidad(driver)
+                        descripcion = Webscrapper.recolectarDescripcion(driver)
                         exitoso = True
                     except:
                         time.sleep(TIEMPO_ESPERA)
                 
 
-                actual = Oferta(salario,empresa,ubicacion,modalidad,descripcion,"","","")
-                print(actual.obtenerSalario())
+                actual = Oferta(salario,empresa,ubicacion,modalidad,"","","","")
+
                 listaOfertas.append(actual)
                 i+=1 # pasa a la siguiente oferta
                 if i <= 30:
@@ -89,6 +89,35 @@ class Webscrapper:
             salario = -1 #Valor por default
 
         return salario
+
+    def recolectarEmpresa(driver):
+
+        try:
+            tamano = driver.find_element_by_xpath('//*[@id="EmpBasicInfo"]/div[1]/div/div[1]/span[2]').text
+        except NoSuchElementException:
+            tamano = -1
+        
+        return tamano
+
+    def recolectarUbicacion(driver):
+
+        ubicacion = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
+
+        return ubicacion 
+
+    def recolectarModalidad(driver):
+
+        modalidad = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
+
+        return modalidad
+
+    def recolectarDescripcion(driver):
+
+        verMas = driver.find_element_by_xpath('//*[@id="JobDescriptionContainer"]/div[2]')
+        verMas.click()
+        descripcion = driver.find_element_by_class_name("jobDescriptionContent").text
+
+        return descripcion
 
 
 
