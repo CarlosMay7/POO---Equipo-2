@@ -2,7 +2,6 @@ from Oferta import Oferta
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 from selenium import webdriver
 import time
-import os
 
 class Webscrapper:
 
@@ -11,7 +10,6 @@ class Webscrapper:
     def recolectarOfertas(listaOfertas):
 
         TIEMPO_ESPERA = 2
-        DIR = os.path.dirname(__file__)
         PATH = r"driver\chromedriver.exe"
         
         #Inicializar webdriver
@@ -48,9 +46,6 @@ class Webscrapper:
 
             for botonOferta in botonesOfertas:
 
-                if len(listaOfertas) >= 31:
-                    break
-
                 primeraOferta.click()
                 
                 time.sleep(TIEMPO_ESPERA)
@@ -78,21 +73,24 @@ class Webscrapper:
 
             #Clickea el boton de siguiente pagina
             try:
-                driver.find_element_by_css_selector("button[aria-label=Next]").click()
+                driver.find_element_by_xpath('//*[@id="MainCol"]/div[2]/div/div[1]/button[7]').click()
             except NoSuchElementException:
                 print("aiuda")
                 break
 
-            return listaOfertas
+        return listaOfertas
 
     def recolectarSalario(driver):
 
         try:
             salario = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[4]/span').text
+            salario += driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[2]/div[1]/div[2]/div/div[1]/div[2]/div[1]/span').text # si es por mes, año u hora
         except NoSuchElementException:
             salario = -1 #Valor por default
 
         return salario
+
+
 
 
 
