@@ -43,16 +43,19 @@ class Parser:
             
         return tamañoEmpresa
     
+
     @staticmethod
     def limpiarUbicacion(ubicacion):
-        if ubicacion != None or ubicacion != 'Trabajo desde casa':
-            return ubicacion
-            
-            
-    
+        if ubicacion == 'Trabajo desde casa':
+            ubicacion = "Ninguna"
+        return ubicacion
+
+
+
     @staticmethod
     def limpiarModalidad(modalidad):
-        if modalidad != '-1':
-            return 0
-        
-
+        if modalidad == 'Trabajo desde casa':
+            modalidad = modalidad.replace(modalidad, "Virtual")
+        else:
+            modalidad = modalidad.replace(modalidad, "Presencial")
+        return modalidad
