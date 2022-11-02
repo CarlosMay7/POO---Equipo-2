@@ -25,7 +25,7 @@ class Oferta:
     def obtenerSalario (self):
         return self.__salario
 
-    def obtenerTamañoEmpresa(self):
+    def obtenerTamanoEmpresa(self):
         return self.__tamanoEmpresa
 
     def obtenerModalidad(self):

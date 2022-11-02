@@ -27,21 +27,21 @@ class Parser:
         return salarioMensual
     
     @staticmethod
-    def limpiarTamañoEmpresa(tamañoEmpresa):
-        tamañoEmpresa = tamañoEmpresa.split('e')[1]
-        tamañoEmpresa = tamañoEmpresa.replace(' ', '').replace('a', '-')
-        tamañoEmpresa = tamañoEmpresa.split('-')[1]
+    def limpiarTamanoEmpresa(tamanoEmpresa):
+        tamanoEmpresa = tamanoEmpresa.split('e')[1]
+        tamanoEmpresa = tamanoEmpresa.replace(' ', '').replace('a', '-')
+        tamanoEmpresa = tamanoEmpresa.split('-')[1]
         
-        if tamañoEmpresa == "50" or tamañoEmpresa == "200" or tamañoEmpresa == "500":
-            tamañoEmpresa = tamañoEmpresa.replace(tamañoEmpresa, "Pequeña")
-        elif tamañoEmpresa == "1000" or tamañoEmpresa == "5000":
-            tamañoEmpresa = tamañoEmpresa.replace(tamañoEmpresa, "Mediana")
-        elif tamañoEmpresa == "10000":
-            tamañoEmpresa = tamañoEmpresa.replace(tamañoEmpresa, "Grande")
+        if tamanoEmpresa == "50" or tamanoEmpresa == "200" or tamanoEmpresa == "500":
+            tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Pequeña")
+        elif tamanoEmpresa == "1000" or tamanoEmpresa == "5000":
+            tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Mediana")
+        elif tamanoEmpresa == "10000":
+            tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Grande")
         else:
-            tamañoEmpresa = "-2"
+            tamanoEmpresa = "-2"
             
-        return tamañoEmpresa
+        return tamanoEmpresa
     
 
     @staticmethod

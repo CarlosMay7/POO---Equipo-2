@@ -1,4 +1,5 @@
 from Oferta import Oferta
+from Parser import Parser
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 from selenium import webdriver
 import time
@@ -61,6 +62,7 @@ class Webscrapper:
                         descripcion = Webscrapper.recolectarDescripcion(driver)
                         exitoso = True
                     except:
+                        print("awanta")
                         time.sleep(TIEMPO_ESPERA)
                 
 
@@ -88,6 +90,8 @@ class Webscrapper:
         except NoSuchElementException:
             salario = -1 #Valor por default
 
+        salario = Parser.limpiarSalario(salario)
+
         return salario
 
     def recolectarEmpresa(driver):
@@ -96,6 +100,8 @@ class Webscrapper:
             tamano = driver.find_element_by_xpath('//*[@id="EmpBasicInfo"]/div[1]/div/div[1]/span[2]').text
         except NoSuchElementException:
             tamano = -1
+
+        tamano = Parser.limpiarTamanoEmpresa(tamano)
         
         return tamano
 
@@ -103,11 +109,15 @@ class Webscrapper:
 
         ubicacion = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
 
+        ubicacion = Parser.limpiarUbicacion(ubicacion)
+
         return ubicacion 
 
     def recolectarModalidad(driver):
 
         modalidad = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
+
+        modalidad = Parser.limpiarModalidad(modalidad)
 
         return modalidad
 
