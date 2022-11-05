@@ -1,5 +1,7 @@
 import csv
 from Softskill import Softskill
+from Tecnologias import Tecnologias
+
 class Diccionario:
 
     def __init__(self):
@@ -16,8 +18,21 @@ class Diccionario:
     def obtenerListaRoles(self):
         return self.listaRoles
 
-    def crearListaTecnologias():
-        return []
+    def crearListaTecnologias ():
+        listaTecnologias = []
+
+        with open('prueba.csv', newline='') as tecs:
+            lectorTecnologias = csv.reader(tecs, delimiter=',')
+
+            for tecno in lectorTecnologias:
+                nuevaTecno = Tecnologias(tecno, len(listaTecnologias))
+                if (listaTecnologias.__contains__(nuevaTecno)):
+                    nuevaTecno.aumentarFrecuencia()
+                else: 
+                    listaTecnologias.append(nuevaTecno)
+                    nuevaTecno.aumentarFrecuencia()
+        
+        return listaTecnologias
 
     def crearListaRoles():
         return[]
@@ -32,5 +47,4 @@ class Diccionario:
                     listaSoftskills.append(Softskill(softskill))
         
         return listaSoftskills
-
 
