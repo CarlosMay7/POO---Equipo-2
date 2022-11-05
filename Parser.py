@@ -22,24 +22,28 @@ class Parser:
         elif 'mes' in tipoSalario:
             salarioMensual = ((salarioMin + salarioMax) / 2) * 1000
         else:
-            salarioMensual = -2
+            salarioMensual = -1
             
         return salarioMensual
     
     @staticmethod
     def limpiarTamanoEmpresa(tamanoEmpresa):
-        tamanoEmpresa = tamanoEmpresa.split('e')[1]
-        tamanoEmpresa = tamanoEmpresa.replace(' ', '').replace('a', '-')
-        tamanoEmpresa = tamanoEmpresa.split('-')[1]
-        
-        if tamanoEmpresa == "50" or tamanoEmpresa == "200" or tamanoEmpresa == "500":
-            tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Pequeña")
-        elif tamanoEmpresa == "1000" or tamanoEmpresa == "5000":
-            tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Mediana")
-        elif tamanoEmpresa == "10000":
-            tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Grande")
+        if tamanoEmpresa == "No se sabe":
+            tamanoEmpresa = "-1"
         else:
-            tamanoEmpresa = "-2"
+            tamanoEmpresa = tamanoEmpresa.split('e')[1]
+            tamanoEmpresa = tamanoEmpresa.replace(' ', '').replace('a', '-')
+            if '-' in tamanoEmpresa:
+                tamanoEmpresa = tamanoEmpresa.split('-')[1]
+            
+            if tamanoEmpresa == "50" or tamanoEmpresa == "200" or tamanoEmpresa == "500":
+                tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Pequeña")
+            elif tamanoEmpresa == "1000" or tamanoEmpresa == "5000":
+                tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Mediana")
+            elif tamanoEmpresa == "10000":
+                tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Grande")
+            else:
+                tamanoEmpresa = "-1"
             
         return tamanoEmpresa
     
@@ -47,7 +51,7 @@ class Parser:
     @staticmethod
     def limpiarUbicacion(ubicacion):
         if ubicacion == 'Trabajo desde casa':
-            ubicacion = "Ninguna"
+            ubicacion = "-1"
         return ubicacion
 
 
