@@ -21,7 +21,7 @@ class Diccionario:
     def crearListaTecnologias ():
         listaTecnologias = []
 
-        with open('prueba.csv', newline='') as tecs:
+        with open('src\Tecnologias.csv', newline='') as tecs:
             lectorTecnologias = csv.reader(tecs, delimiter=',')
 
             for tecno in lectorTecnologias:
