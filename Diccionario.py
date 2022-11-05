@@ -35,12 +35,8 @@ class Diccionario:
         return listaTecnologias
 
     def crearListaRoles():
-        return[]
-
-    def funcioncreadamientrasedito():
-        print("Hola")
-        return
-        
+        return[]     
+    
     def crearListaSoftskills():
         listaSoftskills = []
         with open('src\Softskills.csv',mode = 'r')as file:
