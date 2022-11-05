@@ -4,7 +4,6 @@ class Sistema:
         self.listaOfertas = []
         self.listaColeccionGraficas = []
 
-
     def consultarDatosActuales(self, nuevaInfo,rol, filtro1, filtro2):
         if (nuevaInfo==True):
             Sistema.generarDatos(self.listaOfertas)

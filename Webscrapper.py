@@ -6,8 +6,6 @@ import time
 
 class Webscrapper:
 
-    
-
     def recolectarOfertas(listaOfertas):
 
         TIEMPO_ESPERA = 2
@@ -87,10 +85,10 @@ class Webscrapper:
         try:
             salario = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[4]/span').text
             salario += driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[2]/div[1]/div[2]/div/div[1]/div[2]/div[1]/span').text # si es por mes, año u hora
+            salario = Parser.limpiarSalario(salario)
         except NoSuchElementException:
             salario = -1 #Valor por default
-
-        salario = Parser.limpiarSalario(salario)
+      
 
         return salario
 
@@ -98,10 +96,10 @@ class Webscrapper:
 
         try:
             tamano = driver.find_element_by_xpath('//*[@id="EmpBasicInfo"]/div[1]/div/div[1]/span[2]').text
+            tamano = Parser.limpiarTamanoEmpresa(tamano)
         except NoSuchElementException:
             tamano = -1
-
-        tamano = Parser.limpiarTamanoEmpresa(tamano)
+ 
         
         return tamano
 
