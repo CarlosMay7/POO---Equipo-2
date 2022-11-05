@@ -64,7 +64,8 @@ class Webscrapper:
                         time.sleep(TIEMPO_ESPERA)
                 
 
-                actual = Oferta(salario,empresa,ubicacion,modalidad,"","","","")
+                actual = Oferta(salario,empresa,ubicacion,modalidad,"","","")
+                print(actual.obtenerTamanoEmpresa())
 
                 listaOfertas.append(actual)
                 i+=1 # pasa a la siguiente oferta
