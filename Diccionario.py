@@ -36,7 +36,11 @@ class Diccionario:
 
     def crearListaRoles():
         return[]
-    
+
+    def funcioncreadamientrasedito():
+        print("Hola")
+        return
+        
     def crearListaSoftskills():
         listaSoftskills = []
         with open('src\Softskills.csv',mode = 'r')as file:
