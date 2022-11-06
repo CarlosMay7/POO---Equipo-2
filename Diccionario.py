@@ -1,6 +1,6 @@
 import csv
 from Softskill import Softskill
-from Tecnologias import Tecnologias
+from Tecnologia import Tecnologia
 
 class Diccionario:
 
@@ -19,20 +19,16 @@ class Diccionario:
         return self.listaRoles
 
     def crearListaTecnologias ():
-        listaTecnologias = []
+        tecnologias = []
 
-        with open('src\Tecnologias.csv', newline='') as tecs:
-            lectorTecnologias = csv.reader(tecs, delimiter=',')
+        with open('src\Tecnologias.csv',"r") as tecs:
+            for tecnologia in tecs:
+                lista = tecnologia.split(',')
 
-            for tecno in lectorTecnologias:
-                nuevaTecno = Tecnologias(tecno, len(listaTecnologias))
-                if (listaTecnologias.__contains__(nuevaTecno)):
-                    nuevaTecno.aumentarFrecuencia()
-                else: 
-                    listaTecnologias.append(nuevaTecno)
-                    nuevaTecno.aumentarFrecuencia()
-        
-        return listaTecnologias
+            for tec in lista:
+                tecnologias.append(Tecnologia(tec))
+
+        return tecnologias
 
     def crearListaRoles():
         return[]     
@@ -47,4 +43,5 @@ class Diccionario:
                     listaSoftskills.append(Softskill(softskill))
         
         return listaSoftskills
+
 
