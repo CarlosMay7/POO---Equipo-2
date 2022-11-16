@@ -16,7 +16,7 @@ class Tecnologia:
 
     def aumentarFrecuencia (self):
         self.__frecuencia = self.__frecuencia + 1
-        Tecnologia.frecuenciaTotal=Tecnologia.frecuenciaTotal+1
+        Tecnologia.__frecuenciaTotal=Tecnologia.__frecuenciaTotal+1
         
     def obtenerFrecuencia (self):
         return self.__frecuencia
