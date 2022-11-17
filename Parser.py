@@ -1,3 +1,7 @@
+import re
+from Diccionario import Diccionario
+from Tecnologia import Tecnologia
+
 class Parser:
     
     @staticmethod
@@ -63,3 +67,43 @@ class Parser:
         else:
             modalidad = modalidad.replace(modalidad, "Presencial")
         return modalidad
+    
+    @staticmethod
+    def limpiarTecnologias(Descripcion):
+        diccionario = Diccionario()
+        listaTecno = diccionario.obtenerListaTecnologias()
+        listaOfertaTecno = []
+        
+        Descripcion = Descripcion.lower()
+        listaText = re.findall(r'\w+', Descripcion)
+        listaText = set(listaText)
+        listaText = list(listaText)
+        
+        for index in listaText:
+            for tecno in listaTecno:
+                compararTecno = tecno.obtenerNombre()
+                compararTecno = compararTecno.lower()
+                if compararTecno == index:
+                    tecno.aumentarFrecuencia()
+                    listaOfertaTecno.append(tecno)
+       
+        return listaOfertaTecno
+    
+    def limpiarSoftskills(Descripcion):
+        diccionario = Diccionario()
+        listaSoftskills = diccionario.obtenerListaSoftskills()
+        listaOfertaSoftskills = []
+        
+        Descripcion = Descripcion.replace('á', 'a').replace('é', 'e').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u').replace('Á', 'A').replace('É', 'E').replace('Í', 'I').replace('Ó', 'O').replace('Ú', 'U')
+        Descripcion = Descripcion.lower()
+        
+        for softskills in listaSoftskills:
+            compararSoftskills = softskills.obtenerNombre()
+            compararSoftskills = compararSoftskills.lower()
+            if compararSoftskills in Descripcion:
+                softskills.aumentarFrecuencia()
+                listaOfertaSoftskills.append(softskills)
+
+        return listaOfertaSoftskills
+    
+
