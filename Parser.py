@@ -1,8 +1,22 @@
 import re
 from Diccionario import Diccionario
 from Tecnologia import Tecnologia
+import nltk
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from nltk.tokenize import RegexpTokenizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn import metrics
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 class Parser:
+    
+    clf = None
+    tf = None
+    text_tf = None
+    df_roles = None
     
     @staticmethod
     def limpiarSalario(salario):
@@ -70,8 +84,7 @@ class Parser:
     
     @staticmethod
     def limpiarTecnologias(Descripcion):
-        diccionario = Diccionario()
-        listaTecno = diccionario.obtenerListaTecnologias()
+        listaTecno = Diccionario.obtenerListaTecnologias()
         listaOfertaTecno = []
         
         Descripcion = Descripcion.lower()
@@ -89,9 +102,10 @@ class Parser:
        
         return listaOfertaTecno
     
+    @staticmethod
     def limpiarSoftskills(Descripcion):
-        diccionario = Diccionario()
-        listaSoftskills = diccionario.obtenerListaSoftskills()
+        
+        listaSoftskills = Diccionario.obtenerListaSoftskills()
         listaOfertaSoftskills = []
         
         Descripcion = Descripcion.replace('á', 'a').replace('é', 'e').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u').replace('Á', 'A').replace('É', 'E').replace('Í', 'I').replace('Ó', 'O').replace('Ú', 'U')
@@ -106,4 +120,51 @@ class Parser:
 
         return listaOfertaSoftskills
     
+    @staticmethod
+    def obtenerDfRoles():
+        ListaListaTecnologias = []
+        ListaNombres = []
+        for rol in Diccionario.obtenerListaRoles():
+            ListaNombreTecnologias = ""
+            for tecnologia in rol.obtenerTecnologias():
+                ListaNombreTecnologias+=tecnologia.obtenerNombre()+" "
+            ListaNombres.append(rol.obtenerNombre())
+            ListaListaTecnologias.append(ListaNombreTecnologias)
+        data = {'tecnologias': ListaListaTecnologias, 'nombrerol': ListaNombres}
+        df_roles  = pd.DataFrame(data)
+        return df_roles
+    
+    @staticmethod
+    def limpiarRol(StringTecnologias):
+        if(StringTecnologias == ""):
+            return "indefinido"
+        if(Parser.tf == None):
+            Parser.df_roles = Parser.obtenerDfRoles()
+            Parser.tf=TfidfVectorizer()
+            Parser.inicializarModelo()
+        Parser.df_roles.head()
+        newdf_roles = Parser.df_roles.append(pd.DataFrame({'tecnologias':[StringTecnologias],'nombrerol': [""]}),ignore_index = True)
+        test_tf = Parser.tf.fit_transform(newdf_roles['tecnologias'])
+        descs = newdf_roles['tecnologias']
+        predicted = Parser.clf.predict(test_tf)
+        output = pd.DataFrame({'tecnologias':descs,'nombrerol':predicted})
+        Parser.df_roles = output
+        return output.loc[len(newdf_roles)-1][1]
+
+    @staticmethod
+    def inicializarModelo():
+        Parser.text_tf= Parser.tf.fit_transform(Parser.df_roles['tecnologias'])
+        Parser.clf = MultinomialNB().fit(Parser.text_tf,Parser.df_roles['nombrerol'])
+
+    @staticmethod
+    def limpiarStringTecnologias(ListaTecnologias):
+        StringTecnologias = ""
+        for tecnologia in ListaTecnologias:
+            StringTecnologias+=tecnologia.obtenerNombre()+" "
+        if(StringTecnologias == ""):
+            return StringTecnologias
+        StringTecnologias = StringTecnologias[:-1]
+        return StringTecnologias
+
+
 

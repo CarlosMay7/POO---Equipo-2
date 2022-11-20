@@ -1,13 +1,12 @@
-Machine Learning;C
-Data;C
-DevOps;C
-Full-Stack;C
-Front-End;C,Python
-Mobile;C
-Production;C
-Back-End;Java,Python,C
-Technical;C
-Systems;C
-Network;C
-Security;C
-Database;Python
+Machine Learning;C,Python
+Data;C,Sql,Mysql,Db,Python,Plot
+DevOps;C,Azure,Aws
+Full-Stack;C,Javascript,Python,Java
+Front-End;Html,Css,Javascript
+Mobile;C,Android
+Production;C,Csharp,Cpp
+Back-End;Java,Python,C,Csharp,Cpp
+Systems;C,Java,Assembler
+Network;Cloud,Network,Protocols
+Security;Python,Contracts,Blockchain
+Database;Sql,Mysql,Db

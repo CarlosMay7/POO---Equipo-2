@@ -6,18 +6,18 @@ from Rol import Rol
 class Diccionario:
 
     def __init__(self):
-        self.listaTecnologias = Diccionario.crearListaTecnologias()
-        self.listaRoles = Diccionario.crearListaRoles(self.listaTecnologias)
-        self.listaSoftskills = Diccionario.crearListaSoftskills()
+        Diccionario.listaTecnologias = Diccionario.crearListaTecnologias()
+        Diccionario.listaRoles = Diccionario.crearListaRoles(Diccionario.listaTecnologias)
+        Diccionario.listaSoftskills = Diccionario.crearListaSoftskills()
 
-    def obtenerListaTecnologias(self):
-        return self.listaTecnologias
+    def obtenerListaTecnologias():
+        return Diccionario.listaTecnologias
     
-    def obtenerListaSoftskills(self):
-        return self.listaSoftskills
+    def obtenerListaSoftskills():
+        return Diccionario.listaSoftskills
 
-    def obtenerListaRoles(self):
-        return self.listaRoles
+    def obtenerListaRoles():
+        return Diccionario.listaRoles
 
     def crearListaTecnologias ():
         tecnologias = []

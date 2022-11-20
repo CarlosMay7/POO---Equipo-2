@@ -58,14 +58,18 @@ class Webscrapper:
                         ubicacion = Webscrapper.recolectarUbicacion(driver)
                         modalidad = Webscrapper.recolectarModalidad(driver)
                         descripcion = Webscrapper.recolectarDescripcion(driver)
+                        listaTecnologias = Parser.limpiarTecnologias(descripcion)
+                        cantidadSoftskills = Parser.limpiarSoftskills(descripcion)
+                        rol = Parser.limpiarRol(Parser.limpiarStringTecnologias(listaTecnologias))
                         exitoso = True
-                    except:
+                    except Exception as e:
+                        print(e)
                         print("awanta")
                         time.sleep(TIEMPO_ESPERA)
                 
 
-                actual = Oferta(salario,empresa,ubicacion,modalidad,"","","")
-                print(actual.obtenerTamanoEmpresa())
+                actual = Oferta(salario,empresa,ubicacion,modalidad,listaTecnologias,cantidadSoftskills,rol).obtenerRol()
+                print(actual)
 
                 listaOfertas.append(actual)
                 i+=1 # pasa a la siguiente oferta
