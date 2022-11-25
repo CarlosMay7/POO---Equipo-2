@@ -49,7 +49,7 @@ Lo anterior indica que entrenaremos nuestro modelo con 'text_tf' siendo la matri
 
 Procederemos a añadir nuestra propia review (en ingles) para que nuestro modelo recien entrenado prediga si es positiva o negativa:
 ```python
-newdf = pd.concat([df,pd.DataFrame({'text':["It was actually not bad"],'label': ["1"]})],ignore_index=True)
+newdf = pd.concat([df,pd.DataFrame({'text':["YOUR REVIEW"],'label': [""]})],ignore_index=True)
 ```
 Le estamos concatenando a nuestro dataframe un dataframe nuevo con nuestra review, indicandole con 'ignore_index' que los indices continuen donde se quedaron en el primer dataframe.
 
@@ -88,7 +88,7 @@ df.head()
 tf=TfidfVectorizer()
 text_tf = tf.fit_transform(df['text'])
 clf = MultinomialNB().fit(text_tf,df['label'])
-newdf = pd.concat([df,pd.DataFrame({'text':["It was actually not bad"],'label': ["1"]})],ignore_index=True)
+newdf = pd.concat([df,pd.DataFrame({'text':["YOUR REVIEW"],'label': [""]})],ignore_index=True)
 test_tf = tf.fit_transform(newdf['text'])
 descs = newdf['text']
 predicted = clf.predict(test_tf)
