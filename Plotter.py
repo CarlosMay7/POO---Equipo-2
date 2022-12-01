@@ -51,25 +51,20 @@ class Plotter:
     
     def plotSalario(OfertasDf, rol):
         if rol != "Todos":
-            if rol in OfertasDf.values:
-                OfertasDf = OfertasDf[OfertasDf['rol'] == rol]
-                nombreRol = rol
-                salario = round(OfertasDf.describe().loc["mean","salario"])
-            else:
-                nombreRol = rol
-                salario = 0
+            OfertasDf = OfertasDf[OfertasDf['Rol'] == rol]
+            nombreRol = rol
         else:
             nombreRol = "Ingeniero de software"
-            salario = round(OfertasDf.describe().loc["mean","salario"])
         
-        dfMean = pd.DataFrame()
-        dfMean["salario"] = [salario]
-        dfMean["rol"] = [nombreRol]
-            
-        sns.set_theme(style="whitegrid")
-        g = sns.barplot(data = dfMean, x = "rol", y = "salario", width = 0.35, alpha = 0.6, hatch = "/", hue = "salario", palette = ["darkorange"])
+        if(OfertasDf.empty == False):
+            dfMean = pd.DataFrame()
+            dfMean["salario"] = [round(OfertasDf.describe().loc["mean","Salario"])]
+            dfMean["rol"] = [nombreRol]
+                
+            sns.set_theme(style="whitegrid")
+            g = sns.barplot(data = dfMean, x = "rol", y = "salario", width = 0.35, alpha = 0.6, hatch = "/", hue = "salario", palette = ["darkorange"])
 
-        g.set_title("Salario mensual promedio de " + nombreRol + " estimado", fontsize = 17, weight = "bold")
-        g.set_xlabel("Rol de ingeniero de software", fontsize = 17, weight = "bold")
-        g.set_ylabel("Salario mensual", fontsize = 17, weight = "bold")
-        plt.show()
+            g.set_title("Salario mensual promedio de " + nombreRol + " estimado", fontsize = 17, weight = "bold")
+            g.set_xlabel("Ingeniero de software", fontsize = 17, weight = "bold")
+            g.set_ylabel("Salario mensual", fontsize = 17, weight = "bold")
+            plt.show()
