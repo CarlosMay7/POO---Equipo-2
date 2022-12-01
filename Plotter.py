@@ -48,8 +48,7 @@ class Plotter:
 
         if(TempDf.empty == False):
             sns.countplot(x = "Ubicacion",data = TempDf,palette="Oranges")
-            plt.show(block=True)
-            plt.close()
+            
 
         
         
