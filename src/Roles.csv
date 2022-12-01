@@ -1,12 +1,10 @@
-Machine Learning;C,Python
-Data;C,Sql,Mysql,Db,Python,Plot
-DevOps;C,Azure,Aws
-Full-Stack;C,Javascript,Python,Java
-Front-End;Html,Css,Javascript
-Mobile;C,Android
-Production;C,Csharp,Cpp
-Back-End;Java,Python,C,Csharp,Cpp
-Systems;C,Java,Assembler
-Network;Cloud,Network,Protocols
-Security;Python,Contracts,Blockchain
-Database;Sql,Mysql,Db
+Machine Learning;Python, Java, C++, Scikit, PyTorch, TensorFlow, Apache Mahout, Weka, Jupyter
+DevOps;Git, Maven, Jenkins, Java, JavaScript, Ruby, Python, PHP, Bash
+Full-Stack;HTML, CSS, JavaScript, Jquery, Angular, React, Python, Ruby, .Net, MySQL, MongoDB, Oracle, Figma, Apache, Nginx, Git
+Front-End;HTML, JavaScript, CSS, TypeScript, Angular, Flutter, Bootstrap, React, React Native 
+Mobile;Python, Java, Flutter, React Native, Swift, Kotlin, R
+Back-End;JavaScript, NodeJS, Express, Python, Django, Flask, CherryPY, Ruby, PHP, Laravel, Cake PHP, Java, Spring, Blade, Golang, C#, Perl, C++
+Systems;Nikto, Metasploit, Wireshark, John the Ripper, Snort, Nessus
+Network;Python, Golang, Perl, Bash, JavaScript
+Security;Python, C++, Java, Ruby, Blockchain, FireWalls, SQL, HTML, JavaScript
+Data; Python, Java, R, SQL, NoSQL, Hiv, SAS, Scala, SPSS, Ruby, Perl, Apache, Snowflake, Tableau, Power BIm Redshift, Athena, Azure
