@@ -10,7 +10,7 @@ class Diccionario:
         Diccionario.listaRoles = Diccionario.crearListaRoles(Diccionario.listaTecnologias)
         Diccionario.listaSoftskills = Diccionario.crearListaSoftskills()
 
-    def obtenerListaTecnologias():
+    def obtenerListaTecnologias(self):
         return Diccionario.listaTecnologias
     
     def obtenerListaSoftskills():

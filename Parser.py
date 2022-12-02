@@ -73,6 +73,22 @@ class Parser:
         return ubicacion
 
 
+    @staticmethod
+    def buscarTecnologiasSolicitadas(listaTecnologias):
+        tecsSolicitadas = []
+
+        tecsOrdenadas = sorted (listaTecnologias, key= lambda x : x.obtenerFrecuencia(), reverse = True)
+
+        if tecsOrdenadas.__len__() <10:
+            for i in range (tecsOrdenadas.__len__()): 
+                tecsSolicitadas.append(tecsOrdenadas[i])
+        else:
+            for i in range (10): 
+                tecsSolicitadas.append(tecsOrdenadas[i])
+
+        return tecsSolicitadas 
+
+
 
     @staticmethod
     def limpiarModalidad(modalidad):
@@ -81,6 +97,21 @@ class Parser:
         else:
             modalidad = modalidad.replace(modalidad, "Presencial")
         return modalidad
+
+    @staticmethod
+    def buscarTecnologiasSolicitadas(listaTecnologias):
+        tecsSolicitadas = []
+
+        tecsOrdenadas = sorted (listaTecnologias, key= lambda x : x.obtenerFrecuencia(), reverse = True)
+
+        if tecsOrdenadas.__len__() <10:
+            for i in range (tecsOrdenadas.__len__()): 
+                tecsSolicitadas.append(tecsOrdenadas[i])
+        else:
+            for i in range (10): 
+                tecsSolicitadas.append(tecsOrdenadas[i])
+
+        return tecsSolicitadas 
     
     @staticmethod
     def limpiarTecnologias(Descripcion):
@@ -165,6 +196,3 @@ class Parser:
             return StringTecnologias
         StringTecnologias = StringTecnologias[:-1]
         return StringTecnologias
-
-
-
