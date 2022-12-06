@@ -65,20 +65,17 @@ class Plotter:
         plt.title("Top 10 tecnologías", loc="center")
         plt.show()
 
-
-
-        
-    
     def plotSalario(OfertasDf, rol):
         if rol != "Todos":
             OfertasDf = OfertasDf[OfertasDf['Rol'] == rol]
             nombreRol = rol
         else:
-            nombreRol = "Ingeniero de software"    
-            if(OfertasDf.empty == False):
-                dfMean = pd.DataFrame()
-                dfMean["salario"] = [round(OfertasDf.describe().loc["mean","Salario"])]
-                dfMean["rol"] = [nombreRol]
+            nombreRol = "Ingeniero de software"  
+              
+        if(OfertasDf.empty == False):
+            dfMean = pd.DataFrame()
+            dfMean["salario"] = [round(OfertasDf.describe().loc["mean","Salario"])]
+            dfMean["rol"] = [nombreRol]
                 
             sns.set_theme(style="whitegrid")
             g = sns.barplot(data = dfMean, x = "rol", y = "salario", width = 0.35, alpha = 0.6, hatch = "/", hue = "salario", palette = ["darkorange"])
