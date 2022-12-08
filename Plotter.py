@@ -133,6 +133,12 @@ class Plotter:
     def plotModalidadTamano(OfertasDf,rol):
         
         TempDf = OfertasDf
+        TempDf = TempDf[(TempDf['Locacion'] != "-1")]
+
+        if(TempDf.empty == False):
+            grafica = sns.countplot(x = "Ubicacion",data = TempDf ,palette="Oranges")
+            imagen = grafica.get_figure()
+            return imagen
 
         VirtDf = TempDf[(TempDf['Modalidad'] == "Virtual")]
         PresDf = TempDf[(TempDf['Modalidad'] == "Presencial")]
