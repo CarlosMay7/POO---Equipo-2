@@ -130,4 +130,40 @@ class Plotter:
         plt.savefig("Plot")
             
         
+    def plotModalidadTamano(OfertasDf,rol):
+        
+        TempDf = OfertasDf
+
+        VirtDf = TempDf[(TempDf['Modalidad'] == "Virtual")]
+        PresDf = TempDf[(TempDf['Modalidad'] == "Presencial")]
+        cantidadVirtTam = VirtDf.groupby("Tamano")["Tamano"].count()
+        cantidadPresTam = PresDf.groupby("Tamano")["Tamano"].count()
+        
+        cantidadTotal = pd.DataFrame()
+        cantidadTotal = pd.concat([cantidadVirtTam, cantidadPresTam], axis=1)
+        cantidadTotal.columns = ['Virtual', 'Presencial']
+        cantidadTotal.reset_index(inplace=True,drop=False)
+
+        TamPequena = (cantidadTotal[cantidadTotal.Tamano.str.startswith('P')]) #select row PEQUENA
+        TamMediana = (cantidadTotal[cantidadTotal.Tamano.str.startswith('M')]) #select row MEDIANA
+        TamGrande = (cantidadTotal[cantidadTotal.Tamano.str.startswith('G')]) #select row GRANDE
+
+        TamPequenaVirt = TamPequena.loc[:, 'Virtual'] # all rows , columns = 'Virtual'
+        TamPequenaPres = TamPequena.loc[:, 'Presencial'] # all rows , columns = 'Presencial'
+        TamMedianaVirt = TamMediana.loc[:, 'Virtual'] # all rows , columns = 'Virtual'
+        TamMedianaPres = TamMediana.loc[:, 'Presencial'] # all rows , columns = 'Presencial'
+        TamGrandeVirt = TamGrande.loc[:, 'Virtual'] # all rows , columns = 'Virtual'
+        TamGrandePres = TamGrande.loc[:, 'Presencial'] # all rows , columns = 'Presencial'
+        
+        dfModTam = pd.DataFrame()
+        dfModTam = pd.concat([TamPequenaVirt, TamPequenaPres, TamMedianaVirt, TamMedianaPres, TamGrandeVirt, TamGrandePres], axis=1)
+        dfModTam.columns = ['Virtual\nPequeña', 'Presencial\nPequeña', 'Virtual\nMediana', 'Presencial\nMediana', 'Virtual\nGrande', 'Presencial\nGrande']
+
+        sns.barplot(data=dfModTam, color = "orange")
+        plt.title("Modalidad por tamaño.", loc="center")
+        plt.savefig("PlotModalidadTam")
+
+        return 0        
+
+
 
