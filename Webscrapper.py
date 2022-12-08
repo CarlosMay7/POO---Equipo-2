@@ -119,7 +119,7 @@ class Webscrapper:
     def recolectarModalidad(driver):
 
         modalidad = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
-
+        
         modalidad = Parser.limpiarModalidad(modalidad)
 
         return modalidad

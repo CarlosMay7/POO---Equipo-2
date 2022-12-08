@@ -2,6 +2,8 @@ import pandas as pd
 from Diccionario import Diccionario
 import seaborn as sns
 import matplotlib.pyplot as plt
+from ColeccionGraficas import ColeccionGraficas
+
 class Plotter:
     
     def __init__(self) -> None:
@@ -25,29 +27,38 @@ class Plotter:
 
         for rol in ListaRoles:
             Plotter.plotLocacion(OfertasDf,rol.obtenerNombre())
-            #Plotter.plotSalarioTamano(OfertasDf,rol.obtenerNombre())
-            #Plotter.plotSalario(OfertasDf,rol.obtenerNombre())
-            #Plotter.plotModalidadTamano(OfertasDf,rol.obtenerNombre())
-            #Plotter.plotModalidad(OfertasDf,rol.obtenerNombre())
-            #Plotter.plotTamano(OfertasDf,rol.obtenerNombre())
+            Plotter.plotSalarioTamano(OfertasDf,rol.obtenerNombre())
+            Plotter.plotSalario(OfertasDf,rol.obtenerNombre())
+            Plotter.plotModalidadTamano(OfertasDf,rol.obtenerNombre())
+            Plotter.plotModalidad(OfertasDf,rol.obtenerNombre())
+            Plotter.plotTamano(OfertasDf,rol.obtenerNombre())
             Plotter.plotSalarioModalidad(OfertasDf,rol.obtenerNombre())
 
         Plotter.plotLocacion(OfertasDf,"Todos")
-        #Plotter.plotSalarioTamano(OfertasDf,"Todos")
-        #Plotter.plotSalario(OfertasDf,"Todos")
-        #Plotter.plotModalidadTamano(OfertasDf,"Todos")
-        #Plotter.plotModalidad(OfertasDf,"Todos")
-        #Plotter.plotTamano(OfertasDf,"Todos")
+        Plotter.plotSalarioTamano(OfertasDf,"Todos")
+        Plotter.plotSalario(OfertasDf,"Todos")
+        Plotter.plotModalidadTamano(OfertasDf,"Todos")
+        Plotter.plotModalidad(OfertasDf,"Todos")
+        Plotter.plotTamano(OfertasDf,"Todos")
         Plotter.plotSalarioModalidad(OfertasDf,"Todos")
 
     
     def plotLocacion(OfertasDf,rol):
         TempDf = OfertasDf
+        
+        TempDf = TempDf[(TempDf['Locacion'] != "-1")]
+        
         if(rol != "Todos"):
             TempDf = TempDf[(TempDf['Rol'] == rol)]
+            
+        
 
         if(TempDf.empty == False):
-            sns.countplot(x = "Ubicacion",data = TempDf,palette="Oranges")
+            grafica = sns.countplot(x = "Ubicacion",data = TempDf,palette="Oranges")
+            imagen = grafica.get_figure()
+            return imagen
+        
+        return 0
 
     def plotTecnologiasSolicitadas(self,listaTecnologias):
 
@@ -63,9 +74,10 @@ class Plotter:
 
         sns.barplot(data = dfPloteo,x="Tecnologia", y = 'Frecuencia', color="darkorange")
         plt.title("Top 10 tecnologías", loc="center")
-        plt.show()
+        #plt.show()
 
     def plotSalario(OfertasDf, rol):
+        OfertasDf =  OfertasDf[( OfertasDf['Salario'] != -1)]
         if rol != "Todos":
             OfertasDf = OfertasDf[OfertasDf['Rol'] == rol]
             nombreRol = rol
@@ -78,12 +90,16 @@ class Plotter:
             dfMean["rol"] = [nombreRol]
                 
             sns.set_theme(style="whitegrid")
-            g = sns.barplot(data = dfMean, x = "rol", y = "salario", width = 0.35, alpha = 0.6, hatch = "/", hue = "salario", palette = ["darkorange"])
+            grafica = sns.barplot(data = dfMean, x = "rol", y = "salario", width = 0.35, alpha = 0.6, hatch = "/", hue = "salario", palette = ["darkorange"])
 
-            g.set_title("Salario mensual promedio de " + nombreRol + " estimado", fontsize = 17, weight = "bold")
-            g.set_xlabel("Ingeniero de software", fontsize = 17, weight = "bold")
-            g.set_ylabel("Salario mensual", fontsize = 17, weight = "bold")
-            plt.show()
+            grafica.set_title("Salario mensual promedio de " + nombreRol + " estimado", fontsize = 17, weight = "bold")
+            grafica.set_xlabel("Ingeniero de software", fontsize = 17, weight = "bold")
+            grafica.set_ylabel("Salario mensual", fontsize = 17, weight = "bold")
+            imagen = grafica.get_figure()
+            #plt.show()
+            return imagen
+        
+        return 0
             
     def plotSalarioModalidad (dataFrame,rol):
 
