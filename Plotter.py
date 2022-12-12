@@ -127,7 +127,6 @@ class Plotter:
 
                 grafica = sns.barplot(data = df4,x="Modalidad", y = 'Salario', color="darkorange")
                 grafica.set_title("Salario por modalidad en pesos", fontsize = 17, weight = "bold",)
-                plt.show()
                 imagen = grafica.get_figure()
                 return imagen
 
@@ -288,7 +287,6 @@ class Plotter:
             grafica = sns.barplot(data = dfTamSal3,x="TamanoEmpresa", y = 'Salario', color="darkorange")
             grafica.set_xlabel("Tamaño de empresa")
             grafica.set_title("Salario mensual por Tamaño de Empresa", fontsize = 17, weight = "bold")
-            plt.show()
             imagen = grafica.get_figure()
             return imagen
 
