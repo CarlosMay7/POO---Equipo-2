@@ -43,7 +43,7 @@ class Plotter:
         Plotter.plotSalarioModalidad(OfertasDf,"Todos")
 
     
-    def plotLocacion(OfertasDf,rol):
+    def plotLocacion(self,OfertasDf,rol):
         TempDf = OfertasDf
         
         TempDf = TempDf[(TempDf['Locacion'] != "-1")]
@@ -132,7 +132,7 @@ class Plotter:
 
         return 0
 
-    def plotTamano(OfertasDf, rol):
+    def plotTamano(self,OfertasDf, rol):
 
         OfertasDf =  OfertasDf[( OfertasDf['TamanoEmpresa'] != "-1")]
 
@@ -174,7 +174,7 @@ class Plotter:
 
         return 0
 
-    def plotModalidad(OfertasDf, rol):
+    def plotModalidad(self,OfertasDf, rol):
         
         if(OfertasDf.empty==False):
 
