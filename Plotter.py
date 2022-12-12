@@ -97,42 +97,45 @@ class Plotter:
         
         return 0
             
-    def plotSalarioModalidad (dataFrame,rol):
+    def plotSalarioModalidad (self,dataFrame,rol):
 
-        if(rol != "Todos"):
-            dataFrame = dataFrame[(dataFrame['Rol'] == rol)]
+        dataFrame =  dataFrame[( dataFrame['Salario'] != -1)]
 
         if(dataFrame.empty == False):
 
-            dfDatos2 = dataFrame.groupby('Modalidad')['Salario Mensual'].sum()
-            print(dfDatos2)
+            if(rol != "Todos"):
+                dataFrame = dataFrame[(dataFrame['Rol'] == rol)]
 
-            dfDatos2.columns = ['Modalidad', 'Suma']
-            print(dfDatos2)
-            dfDatos3 = dataFrame.groupby('Modalidad')['Salario Mensual'].count()
-            dfDatos3.columns = ['Modalidad', 'Cantidad']
+            if(dataFrame.empty == False):
 
-            df4 = pd.DataFrame()
-            df4 = pd.concat([dfDatos2, dfDatos3], axis=1)
-            df4.columns = ['Suma', 'Cantidad']
+                dfDatos2 = dataFrame.groupby('Modalidad')['Salario Mensual'].sum()
 
-            df4['Salario'] = df4['Suma'] / df4['Cantidad']
+                dfDatos2.columns = ['Modalidad', 'Suma']
+                dfDatos3 = dataFrame.groupby('Modalidad')['Salario Mensual'].count()
+                dfDatos3.columns = ['Modalidad', 'Cantidad']
 
-            salarioint = df4['Salario'].apply(lambda x: int(x))
-            df4['Salario'] = salarioint
+                df4 = pd.DataFrame()
+                df4 = pd.concat([dfDatos2, dfDatos3], axis=1)
+                df4.columns = ['Suma', 'Cantidad']
 
-            df4.reset_index(inplace=True, drop=False)
+                df4['Salario'] = df4['Suma'] / df4['Cantidad']
 
-            grafica = sns.barplot(data = df4,x="Modalidad", y = 'Salario', color="darkorange")
-            grafica.set_title("Salario por modalidad en pesos", fontsize = 17, weight = "bold",)
-            imagen = grafica.get_figure()
-            return imagen
+                salarioint = df4['Salario'].apply(lambda x: int(x))
+                df4['Salario'] = salarioint
+
+                df4.reset_index(inplace=True, drop=False)
+
+                grafica = sns.barplot(data = df4,x="Modalidad", y = 'Salario', color="darkorange")
+                grafica.set_title("Salario por modalidad en pesos", fontsize = 17, weight = "bold",)
+                plt.show()
+                imagen = grafica.get_figure()
+                return imagen
 
         return 0
 
     def plotTamano(OfertasDf, rol):
 
-        OfertasDf =  OfertasDf[( OfertasDf['tamaño'] != -1)]
+        OfertasDf =  OfertasDf[( OfertasDf['TamanoEmpresa'] != "-1")]
 
         if(OfertasDf.empty == False):
 
@@ -142,28 +145,28 @@ class Plotter:
                     
                     OfertasDf = OfertasDf[OfertasDf['rol'] == rol]
                     nombreRol = rol
-                    tamanoPequena = OfertasDf["tamaño"].value_counts().loc["Pequeña"] 
-                    tamanoMediana = OfertasDf["tamaño"].value_counts().loc["Mediana"]
-                    tamanoGrande = OfertasDf["tamaño"].value_counts().loc["Grande"]
+                    tamanoPequena = OfertasDf["TamanoEmpresa"].value_counts().loc["Pequeña"] 
+                    tamanoMediana = OfertasDf["TamanoEmpresa"].value_counts().loc["Mediana"]
+                    tamanoGrande = OfertasDf["TamanoEmpresa"].value_counts().loc["Grande"]
 
                 else:
                     nombreRol = rol
-                    tamanoPequena = OfertasDf["tamaño"].value_counts().loc["Pequeña"] 
-                    tamanoMediana = OfertasDf["tamaño"].value_counts().loc["Mediana"]
-                    tamanoGrande = OfertasDf["tamaño"].value_counts().loc["Grande"]
+                    tamanoPequena = OfertasDf["TamanoEmpresa"].value_counts().loc["Pequeña"] 
+                    tamanoMediana = OfertasDf["TamanoEmpresa"].value_counts().loc["Mediana"]
+                    tamanoGrande = OfertasDf["TamanoEmpresa"].value_counts().loc["Grande"]
                     
             else:
                 nombreRol = "Ingeniero de Software"
-                tamanoPequena = OfertasDf["tamaño"].value_counts().loc["Pequeña"] 
-                tamanoMediana = OfertasDf["tamaño"].value_counts().loc["Mediana"]
-                tamanoGrande = OfertasDf["tamaño"].value_counts().loc["Grande"]
+                tamanoPequena = OfertasDf["TamanoEmpresa"].value_counts().loc["Pequeña"] 
+                tamanoMediana = OfertasDf["TamanoEmpresa"].value_counts().loc["Mediana"]
+                tamanoGrande = OfertasDf["TamanoEmpresa"].value_counts().loc["Grande"]
             
             dfModalidad = pd.DataFrame()
-            dfModalidad["tamaño"] = ["Pequeña","Mediana","Grande"]
+            dfModalidad["TamanoEmpresa"] = ["Pequeña","Mediana","Grande"]
             dfModalidad["cantidad"] = [tamanoPequena,tamanoMediana,tamanoGrande]
 
             sns.set_theme(style="whitegrid")
-            g = sns.barplot(data = dfModalidad, x = "tamaño", y = "cantidad", width = 0.35, alpha = 0.6, hatch = "/", palette = ["darkorange"])
+            g = sns.barplot(data = dfModalidad, x = "TamanoEmpresa", y = "cantidad", width = 0.35, alpha = 0.6, hatch = "/", palette = ["darkorange"])
             g.set_title("Tamaño de Empresa", fontsize = 17, weight = "bold")
             g.set_xlabel("Rol de Ingeniero de Software: " + rol, fontsize = 17, weight = "bold")
             g.set_ylabel("Tamaño", fontsize = 17, weight = "bold")
@@ -174,47 +177,57 @@ class Plotter:
 
     def plotModalidad(OfertasDf, rol):
         
-        if rol != "Todos":
-            
-            if rol in OfertasDf.values:
-                
-                OfertasDf = OfertasDf[OfertasDf['rol'] == rol]
-                nombreRol = rol
-                modalidadPresencial = OfertasDf["modalidad"].value_counts().loc["Presencial"] 
-                modalidadVirtual = OfertasDf["modalidad"].value_counts().loc["Virtual"]
-                
+        if(OfertasDf.empty==False):
+
+            if (rol != "Todos"):
+                if rol in OfertasDf.values:
+                    
+                    OfertasDf = OfertasDf[OfertasDf['rol'] == rol]
+                    nombreRol = rol
+                    modalidadPresencial = OfertasDf["Modalidad"].value_counts().loc["Presencial"] 
+                    modalidadVirtual = OfertasDf["Modalidad"].value_counts().loc["Virtual"]
+                    
+                else:
+                    nombreRol = rol
+                    modalidadPresencial = OfertasDf["Modalidad"].value_counts().loc["Presencial"] 
+                    modalidadVirtual = OfertasDf["Modalidad"].value_counts().loc["Virtual"]
+                    
             else:
-                nombreRol = rol
-                modalidadPresencial = OfertasDf["modalidad"].value_counts().loc["Presencial"] 
-                modalidadVirtual = OfertasDf["modalidad"].value_counts().loc["Virtual"]
+                nombreRol = "Ingeniero de Software"
+                modalidadPresencial = OfertasDf["Modalidad"].value_counts().loc["Presencial"] 
+                modalidadVirtual = OfertasDf["Modalidad"].value_counts().loc["Virtual"]
+            
+            dfModalidad = pd.DataFrame()
+            dfModalidad["Modalidad"] = ["Presencial","Virtual"]
+            dfModalidad["cantidad"] = [modalidadPresencial,modalidadVirtual]
                 
-        else:
-            nombreRol = "Ingeniero de Software"
-            modalidadPresencial = OfertasDf["modalidad"].value_counts().loc["Presencial"] 
-            modalidadVirtual = OfertasDf["modalidad"].value_counts().loc["Virtual"]
-        
-        dfModalidad = pd.DataFrame()
-        dfModalidad["modalidad"] = ["Presencial","Virtual"]
-        dfModalidad["cantidad"] = [modalidadPresencial,modalidadVirtual]
-            
-        sns.set_theme(style="whitegrid")
-        g = sns.barplot(data = dfModalidad, x = "modalidad", y = "cantidad", width = 0.35, alpha = 0.6, hatch = "/", hue = "cantidad", palette = ["darkorange"])
-        g.set_title("Modalidad de " + nombreRol, fontsize = 17, weight = "bold")
-        g.set_xlabel("Rol de Ingeniero de Software: " + rol, fontsize = 17, weight = "bold")
-        g.set_ylabel("Modalidad", fontsize = 17, weight = "bold")
-        plt.show()
+
+            sns.set_theme(style="whitegrid")
+            g = sns.barplot(data = dfModalidad, x = "modalidad", y = "cantidad", width = 0.35, alpha = 0.6, hatch = "/", hue = "cantidad", palette = ["darkorange"])
+            g.set_title("Modalidad de " + nombreRol, fontsize = 17, weight = "bold")
+            g.set_xlabel("Rol de Ingeniero de Software: " + rol, fontsize = 17, weight = "bold")
+            g.set_ylabel("Modalidad", fontsize = 17, weight = "bold")
+            imagen = g.get_figure()
+            return imagen
+
+        return 0
             
         
-    def plotModalidadTamano(OfertasDf,rol):
-        
+    def plotModalidadTamano(self,OfertasDf,rol):
+
+        if (rol != "Todos"):
+            OfertasDf = OfertasDf[OfertasDf['rol'] == rol]
+
         TempDf = OfertasDf
-        TempDf = TempDf[(TempDf['Locacion']['Modalidad'] != "-1")]
+        TempDf = TempDf[(TempDf['Modalidad'] != "-1")]
+        TempDf =  TempDf[(TempDf['TamanoEmpresa'] != "-1")]
+
 
         if(dfModTam.empty == False):
             VirtDf = TempDf[(TempDf['Modalidad'] == "Virtual")]
             PresDf = TempDf[(TempDf['Modalidad'] == "Presencial")]
-            cantidadVirtTam = VirtDf.groupby("Tamano")["Tamano"].count()
-            cantidadPresTam = PresDf.groupby("Tamano")["Tamano"].count()
+            cantidadVirtTam = VirtDf.groupby("TamanoEmpresa")["TamanoEmpresa"].count()
+            cantidadPresTam = PresDf.groupby("TamanoEmpresa")["TamanoEmpresa"].count()
             
             cantidadTotal = pd.DataFrame()
             cantidadTotal = pd.concat([cantidadVirtTam, cantidadPresTam], axis=1)
@@ -244,21 +257,22 @@ class Plotter:
 
         return 0
 
-    def plotSalarioTamano (dataFrame, rol):
+    def plotSalarioTamano (self,dataFrame, rol):
 
         if(rol != "Todos"):
             dataFrame = dataFrame[(dataFrame['Rol'] == rol)]
 
-        dataFrame = dataFrame[(dataFrame['TamanoEmpresa']['Salario Mensual'] != "-1")]
+        dataFrame = dataFrame[(dataFrame['Salario'] != -1)]
+        dataFrame = dataFrame[(dataFrame['TamanoEmpresa'] != "-1")]
 
 
         if(dataFrame.empty == False):
 
-            dfTamSal = dataFrame.groupby('TamanoEmpresa')['Salario Mensual'].sum()
+            dfTamSal = dataFrame.groupby('TamanoEmpresa')['Salario'].sum()
 
-            dfTamSal.columns = ['TamanoEmpresa', 'Suma']
-            dfTamSal2 = dataFrame.groupby('TamanoEmpresa')['Salario Mensual'].count()
-            dfTamSal2.columns = ['TamanoEmpresa', 'Cantidad']
+            dfTamSal.columns = ['Tamano de Empresa', 'Suma']
+            dfTamSal2 = dataFrame.groupby('TamanoEmpresa')['Salario'].count()
+            dfTamSal2.columns = ['Tamano de Empresa', 'Cantidad']
 
             dfTamSal3 = pd.DataFrame()
             dfTamSal3 = pd.concat([dfTamSal, dfTamSal2], axis=1)
@@ -271,8 +285,10 @@ class Plotter:
 
             dfTamSal3.reset_index(inplace=True, drop=False)
 
-            grafica = sns.barplot(data = dfTamSal3,x="Tamaño de Empresa", y = 'Salario', color="darkorange")
-            grafica.set_title("Salario mensual por Tamaño de Empresa", fontsize = 17, weight = "bold",)
+            grafica = sns.barplot(data = dfTamSal3,x="TamanoEmpresa", y = 'Salario', color="darkorange")
+            grafica.set_xlabel("Tamaño de empresa")
+            grafica.set_title("Salario mensual por Tamaño de Empresa", fontsize = 17, weight = "bold")
+            plt.show()
             imagen = grafica.get_figure()
             return imagen
 
