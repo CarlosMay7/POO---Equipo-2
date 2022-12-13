@@ -115,7 +115,6 @@ class Parser:
     
     @staticmethod
     def limpiarTecnologias(Descripcion):
-        Diccionario()
         listaTecno = Diccionario.obtenerListaTecnologias()
         listaOfertaTecno = []
         
@@ -127,7 +126,7 @@ class Parser:
         for index in listaText:
             for tecno in listaTecno:
                 compararTecno = tecno.obtenerNombre()
-                compararTecno = compararTecno.lower().replace(' ', '')
+                compararTecno = compararTecno.lower()
                 if compararTecno == index:
                     tecno.aumentarFrecuencia()
                     listaOfertaTecno.append(tecno)
@@ -136,7 +135,6 @@ class Parser:
     
     @staticmethod
     def limpiarSoftskills(Descripcion):
-        Diccionario()
         listaSoftskills = Diccionario.obtenerListaSoftskills()
         listaOfertaSoftskills = []
         
@@ -145,7 +143,7 @@ class Parser:
         
         for softskills in listaSoftskills:
             compararSoftskills = softskills.obtenerNombre()
-            compararSoftskills = compararSoftskills.lower().replace(' ', '')
+            compararSoftskills = compararSoftskills.lower()
             if compararSoftskills in Descripcion:
                 softskills.aumentarFrecuencia()
                 listaOfertaSoftskills.append(softskills)
@@ -154,7 +152,6 @@ class Parser:
     
     @staticmethod
     def obtenerDfRoles():
-        Diccionario()
         ListaListaTecnologias = []
         ListaNombres = []
         for rol in Diccionario.obtenerListaRoles():
