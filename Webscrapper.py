@@ -6,8 +6,7 @@ import time
 
 class Webscrapper:
 
-    def recolectarOfertas(listaOfertas):
-
+    def recolectarOfertas(listaOfertas, listaTecno):
         TIEMPO_ESPERA = 2
         PATH = r"driver\chromedriver.exe"
         
@@ -15,13 +14,13 @@ class Webscrapper:
         options = webdriver.ChromeOptions()
 
         #headless
-        options.add_argument('headless')
+        #options.add_argument('headless')
 
         driver = webdriver.Chrome(executable_path=PATH,options=options)
         url = 'https://www.glassdoor.com.mx/Empleo/m%C3%A9xico-software-engineer-empleos-SRCH_IL.0,6_IN169_KO7,24.htm'
         driver.get(url)
 
-        while len(listaOfertas) < 900:
+        while len(listaOfertas) < 3:
 
             time.sleep(TIEMPO_ESPERA)
 
@@ -44,7 +43,10 @@ class Webscrapper:
             i = 1
 
             for botonOferta in botonesOfertas:
-
+                if len(listaOfertas) >= 10:
+                    return listaOfertas, listaTecno
+                driver.execute_script("arguments[0].scrollIntoView();", primeraOferta)
+                time.sleep(TIEMPO_ESPERA)
                 primeraOferta.click()
                 
                 time.sleep(TIEMPO_ESPERA)
@@ -58,9 +60,9 @@ class Webscrapper:
                         ubicacion = Webscrapper.recolectarUbicacion(driver)
                         modalidad = Webscrapper.recolectarModalidad(driver)
                         descripcion = Webscrapper.recolectarDescripcion(driver)
-                        listaTecnologias = Parser.limpiarTecnologias(descripcion)
+                        listaTecnologias = Parser.limpiarTecnologias(descripcion, listaTecno)
                         cantidadSoftskills = Parser.limpiarSoftskills(descripcion)
-                        rol = Parser.limpiarRol(Parser.limpiarStringTecnologias(listaTecnologias))
+                        rol = Parser.limpiarRol(Parser.limpiarStringTecnologias(listaTecnologias)) #Checar el MultinomialNB
                         exitoso = True
                     except Exception as e:
                         print(e)
@@ -68,8 +70,7 @@ class Webscrapper:
                         time.sleep(TIEMPO_ESPERA)
                 
 
-                actual = Oferta(salario,empresa,ubicacion,modalidad,listaTecnologias,cantidadSoftskills,rol).obtenerRol()
-                print(actual)
+                actual = Oferta(salario,empresa,ubicacion,modalidad,listaTecnologias,len(cantidadSoftskills),rol)
 
                 listaOfertas.append(actual)
                 i+=1 # pasa a la siguiente oferta
@@ -93,6 +94,7 @@ class Webscrapper:
             salario = Parser.limpiarSalario(salario)
         except NoSuchElementException:
             salario = -1 #Valor por default
+
       
 
         return salario
@@ -109,25 +111,31 @@ class Webscrapper:
         return tamano
 
     def recolectarUbicacion(driver):
-
-        ubicacion = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
-
-        ubicacion = Parser.limpiarUbicacion(ubicacion)
+        
+        try:
+            ubicacion = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
+            ubicacion = Parser.limpiarUbicacion(ubicacion)
+        except:
+            ubicacion = "-1"
 
         return ubicacion 
 
     def recolectarModalidad(driver):
-
-        modalidad = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
         
-        modalidad = Parser.limpiarModalidad(modalidad)
-
+        try:
+            modalidad = driver.find_element_by_xpath('//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
+            modalidad = Parser.limpiarModalidad(modalidad)
+        except:
+            modalidad = "-1"
         return modalidad
 
     def recolectarDescripcion(driver):
-
-        verMas = driver.find_element_by_xpath('//*[@id="JobDescriptionContainer"]/div[2]')
-        verMas.click()
+        
+        try:
+            verMas = driver.find_element_by_xpath('//*[@id="JobDescriptionContainer"]/div[2]')
+            verMas.click()
+        except:
+            print("Error boton Descripcion")
         descripcion = driver.find_element_by_class_name("jobDescriptionContent").text
 
         return descripcion

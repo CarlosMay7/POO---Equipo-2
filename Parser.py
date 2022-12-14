@@ -47,7 +47,7 @@ class Parser:
     @staticmethod
     def limpiarTamanoEmpresa(tamanoEmpresa):
         if tamanoEmpresa == "No se sabe":
-            tamanoEmpresa = "-1"
+            tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "-1")
         else:
             tamanoEmpresa = tamanoEmpresa.split('e')[1]
             tamanoEmpresa = tamanoEmpresa.replace(' ', '').replace('a', '-')
@@ -61,14 +61,14 @@ class Parser:
             elif tamanoEmpresa == "10000":
                 tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "Grande")
             else:
-                tamanoEmpresa = "-1"
+                tamanoEmpresa = tamanoEmpresa.replace(tamanoEmpresa, "-1")
             
         return tamanoEmpresa
     
 
     @staticmethod
     def limpiarUbicacion(ubicacion):
-        if ubicacion == 'Trabajo desde casa':
+        if ubicacion == 'Trabajo desde casa' or ubicacion == "":
             ubicacion = "-1"
         return ubicacion
 
@@ -114,8 +114,8 @@ class Parser:
         return tecsSolicitadas 
     
     @staticmethod
-    def limpiarTecnologias(Descripcion):
-        listaTecno = Diccionario.obtenerListaTecnologias()
+    def limpiarTecnologias(Descripcion, listaTecnologias):
+        listaTecno = listaTecnologias
         listaOfertaTecno = []
         
         Descripcion = Descripcion.lower()
@@ -130,7 +130,6 @@ class Parser:
                 if compararTecno == index:
                     tecno.aumentarFrecuencia()
                     listaOfertaTecno.append(tecno)
-       
         return listaOfertaTecno
     
     @staticmethod

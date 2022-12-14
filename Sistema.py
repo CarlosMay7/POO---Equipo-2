@@ -1,6 +1,7 @@
 from Diccionario import Diccionario
 from Webscrapper import Webscrapper
 from ColeccionGraficas import ColeccionGraficas
+from Plotter import Plotter
 class Sistema:
 
     Dict = None
@@ -9,6 +10,11 @@ class Sistema:
         Sistema.Dict = Diccionario()
         self.listaOfertas = []
         self.listaColeccionGraficas = []
+        self.ListaRoles = Diccionario.obtenerListaRoles()
+        self.ListaTecno = Diccionario.obtenerListaTecnologias()
+        self.ListaSoftskills = Diccionario.obtenerListaSoftskills()
+        
+        
 
     @staticmethod
     def getDict():
@@ -22,4 +28,5 @@ class Sistema:
             ColeccionGraficas.mostrarGrafica(rol,filtro1,filtro2)
 
     def generarDatos(self):  
-        Webscrapper.recolectarOfertas(self.listaOfertas)
+        self.listaOfertas,self.ListaTecno = Webscrapper.recolectarOfertas(self.listaOfertas, self.ListaTecno)
+        Plotter.plotOfertas(self.listaOfertas, self.ListaRoles, self.ListaTecno, self.ListaSoftskills)
