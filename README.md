@@ -55,9 +55,9 @@ Se requiere el chromedriver webdriver para la version de chrome que se tenga ins
 
 - [Chromedriver](https://chromedriver.chromium.org/downloads)
 
-Cuando se tengan todas las piezas de la [carpeta 'codigo'](./codigo) de este repositorio, solo es necesario correr el archivo 'interfaz.py'
+Cuando se tengan todas las piezas de la [carpeta 'codigo'](./codigo) de este repositorio, solo es necesario correr el archivo 'main.py'
 
-`interfaz.py`
+`main.py`
 
 Todas las gráficas son generadas al momento.
 
