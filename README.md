@@ -1,4 +1,4 @@
-# LinkJob ![Logo](./img/LogoLinkJob.png)
+# ![Logo](./img/LogoLinkJob.png)
 > LinkJob es una aplicación que permite visualizar la información acerca de las ofertas de trabajo para ingenieros de software en México, por medio de gráficas y archivos .csv.
 > - Video demo: [aquí](https://alumnosuady-my.sharepoint.com/personal/a18000621_alumnos_uady_mx/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fa18000621%5Falumnos%5Fuady%5Fmx%2FDocuments%2F2022%2D05%2D23%2022%2D02%2D02%2Emp4&parent=%2Fpersonal%2Fa18000621%5Falumnos%5Fuady%5Fmx%2FDocuments&ga=1) <!-- If you have the project hosted somewhere, include the link here. -->
 
